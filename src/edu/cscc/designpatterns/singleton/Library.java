@@ -1,5 +1,8 @@
 package edu.cscc.designpatterns.singleton;
 
+import edu.cscc.designpatterns.exercise.BookRepository;
+import edu.cscc.designpatterns.exercise.BookRepositoryImpl;
+
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -7,10 +10,10 @@ import java.util.Set;
 public class Library {
 
     private static Library instance;
-    private Set<Book> books;
+    private BookRepository bookRepository;
 
     private Library() {
-        this.books = new HashSet<Book>();
+        this.bookRepository = new BookRepositoryImpl();
     }
 
     public static Library getInstance() {
@@ -22,10 +25,12 @@ public class Library {
     }
 
     public void addBooks(Collection<Book> books) {
-        this.books.addAll(books);
+        books.stream().forEach(book -> {
+                bookRepository.create(book);
+        });
     }
 
     public Set<Book> getBooks() {
-        return books;
+        return new HashSet<Book>(bookRepository.readAll());
     }
 }

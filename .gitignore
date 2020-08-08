@@ -16,6 +16,7 @@ gradle-app.setting
 *.iml
 *.ipr
 *.iws
+out
 
 # Misc
 *.log

@@ -21,7 +21,7 @@ public class Library {
         return instance;
     }
 
-    public void addBooks(Collection books) {
+    public void addBooks(Collection<Book> books) {
         this.books.addAll(books);
     }
 

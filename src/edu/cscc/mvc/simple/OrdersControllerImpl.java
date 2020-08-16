@@ -11,7 +11,25 @@ public class OrdersControllerImpl implements OrdersController {
 
     @Override
     public void show() {
-        OrdersView ordersView = new OrdersViewImpl(this.model);
+        OrdersView ordersView = new OrdersViewImpl(this.model, this);
         ordersView.show();
+    }
+
+    // other methods
+
+    @Override
+    public void save(Order order) {
+        this.model.setTotal(order.getTotal());
+        this.model.setCustomerName(order.getCustomerName());
+        this.model.setItemCount(order.getItemCount());
+
+        OrdersView ordersView = new OrdersViewImpl(this.model, this);
+        ordersView.show();
+    }
+
+    @Override
+    public void edit() {
+        OrdersView ordersView = new OrdersViewImpl(this.model, this);
+        ordersView.edit();
     }
 }

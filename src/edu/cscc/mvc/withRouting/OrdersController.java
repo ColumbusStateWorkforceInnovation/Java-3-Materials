@@ -33,12 +33,16 @@ public class OrdersController extends ApplicationController {
         render(new ShowOrder(context, updatedOrder));
     }
 
+    public void select() {
+        render(new SelectOrder(context));
+    }
+
     public void edit() {
         render(new EditOrder(context, getOrderIdFromParams()));
     }
 
     private UUID getOrderIdFromParams() {
-        return (UUID) getRequest().getParams().get("orderId");
+        return UUID.fromString((String) getRequest().getParams().get("orderId"));
     }
 
     private Request getRequest() {

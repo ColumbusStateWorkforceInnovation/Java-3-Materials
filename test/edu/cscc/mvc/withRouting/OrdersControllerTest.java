@@ -3,7 +3,6 @@ package edu.cscc.mvc.withRouting;
 import edu.cscc.designpatterns.repository.Order;
 import edu.cscc.designpatterns.repository.OrderRepository;
 import edu.cscc.mvc.withRouting.framework.MVCContext;
-import edu.cscc.mvc.withRouting.framework.MVCView;
 import edu.cscc.mvc.withRouting.framework.Request;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -31,15 +30,7 @@ class OrdersControllerTest {
     }
 
     @Test
-    public void itRendersTheSelectOrderView() {
-        context.setRequest(new Request("Orders", "select"));
-        ordersController.select();
-
-        assertEquals(SelectOrder.class, context.getView());
-    }
-
-    @Test
-    public void itRendersTheShowViewWithTheOrderModel() {
+    public void itRendersTheShowView() {
         Map<String, Object> params = new HashMap<>();
         params.put("orderId", order.getId().toString());
 
@@ -47,8 +38,47 @@ class OrdersControllerTest {
         ordersController.show();
 
         assertEquals(ShowOrder.class, context.getView().getClass());
-        ShowOrder view = (ShowOrder)context.getView();
+    }
 
-        assertEquals(order.getId(), view.getOrder().getId());
+    @Test
+    public void itRendersTheEditView() {
+        Map<String, Object> params = new HashMap<>();
+        params.put("orderId", order.getId().toString());
+
+        context.setRequest(new Request("Orders", "edit", params));
+        ordersController.edit();
+
+        assertEquals(EditOrder.class, context.getView().getClass());
+    }
+
+    @Test
+    public void itRendersTheShowViewOnSave() {
+        Map<String, Object> params = new HashMap<>();
+        params.put("orderId", order.getId().toString());
+        params.put("customerName", "Doc Brown");
+        params.put("itemCount", 3);
+        params.put("orderTotal", 15.0);
+
+        context.setRequest(new Request("Orders", "save", params));
+        ordersController.save();
+
+        assertEquals(ShowOrder.class, context.getView().getClass());
+    }
+
+    @Test
+    public void itSavesTheOrder() {
+        Map<String, Object> params = new HashMap<>();
+        params.put("orderId", order.getId().toString());
+        params.put("customerName", "Doc Brown");
+        params.put("itemCount", 3);
+        params.put("orderTotal", 15.0);
+
+        context.setRequest(new Request("Orders", "save", params));
+        ordersController.save();
+
+        Order updatedOrder = orderRepository.read(order.getId());
+        assertEquals("Doc Brown", updatedOrder.getCustomerName());
+        assertEquals(3, updatedOrder.getItemCount());
+        assertEquals(15.0, updatedOrder.getTotal());
     }
 }

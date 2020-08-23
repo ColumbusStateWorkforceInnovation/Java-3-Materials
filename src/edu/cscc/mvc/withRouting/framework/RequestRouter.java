@@ -6,7 +6,7 @@ import java.lang.reflect.Method;
 
 public class RequestRouter {
 
-    private final MVCContext context;
+    private MVCContext context;
 
     public RequestRouter(MVCContext context) {
         this.context = context;
@@ -29,5 +29,11 @@ public class RequestRouter {
 
     private String getResourceClass(Request request) {
         return "edu.cscc.mvc.withRouting." + request.getResource() + "Controller";
+    }
+
+    public void setContext(MVCContext context) {
+        if(context == null) {
+            this.context = context;
+        }
     }
 }

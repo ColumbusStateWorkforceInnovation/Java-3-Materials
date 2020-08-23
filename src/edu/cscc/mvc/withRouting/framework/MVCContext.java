@@ -8,13 +8,16 @@ import java.lang.reflect.Method;
 
 public class MVCContext {
 
+    private RequestRouter requestRouter;
     private Request request;
     private Object resource;
     private Method action;
     private MVCView view;
 
     public void route(Request request) {
-        RequestRouter requestRouter = new RequestRouter(this);
+        if (requestRouter == null) {
+            requestRouter = new RequestRouter(this);
+        }
         requestRouter.onRequest(request);
     }
 

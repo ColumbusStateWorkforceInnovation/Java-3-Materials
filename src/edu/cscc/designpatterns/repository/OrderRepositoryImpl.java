@@ -1,6 +1,7 @@
 package edu.cscc.designpatterns.repository;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class OrderRepositoryImpl implements OrderRepository {
 
@@ -30,7 +31,7 @@ public class OrderRepositoryImpl implements OrderRepository {
 
     @Override
     public List<Order> readAll() {
-        return null;
+        return orders.stream().collect(Collectors.toList());
     }
 
     @Override
@@ -41,10 +42,5 @@ public class OrderRepositoryImpl implements OrderRepository {
         toUpdate.setTotal(order.getTotal());
 
         return toUpdate;
-    }
-
-    @Override
-    public Order delete(Order order) {
-        return null;
     }
 }

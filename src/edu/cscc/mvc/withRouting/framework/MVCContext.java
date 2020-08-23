@@ -67,21 +67,16 @@ public class MVCContext {
         this.action = action;
     }
 
-    public void processRequest(Request initialRequest) {
+    public void processRequest(Request initialRequest) throws InvocationTargetException, IllegalAccessException {
         route(initialRequest);
         while(true) {
             if (request.isExit()) {
                 System.out.println("Goodbye!");
                 return;
             }
-            try {
-                action.invoke(resource);
-                render();
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
-            } catch (InvocationTargetException e) {
-                e.printStackTrace();
-            }
+
+            action.invoke(resource);
+            render();
         }
     }
 }

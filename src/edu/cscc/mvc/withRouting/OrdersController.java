@@ -28,17 +28,8 @@ public class OrdersController extends ApplicationController {
         render(new ShowOrder(context, order));
     }
 
-    public void save() {
-        Order updatedOrder = orderRepository.update(toUpdate());
-        render(new ShowOrder(context, updatedOrder));
-    }
-
     public void select() {
         render(new SelectOrder(context));
-    }
-
-    public void edit() {
-        render(new EditOrder(context, getOrderIdFromParams()));
     }
 
     private UUID getOrderIdFromParams() {
@@ -47,15 +38,5 @@ public class OrdersController extends ApplicationController {
 
     private Request getRequest() {
         return context.getRequest();
-    }
-
-    private Order toUpdate() {
-        UUID orderId = getOrderIdFromParams();
-        String customerName = (String)getRequest().getParams().get("customerName");
-        Double orderTotal = (Double)getRequest().getParams().get("orderTotal");
-        Integer itemCount = (Integer)getRequest().getParams().get("itemCount");
-        Order toUpdate = new Order(orderId, orderTotal, customerName, itemCount);
-
-        return toUpdate;
     }
 }

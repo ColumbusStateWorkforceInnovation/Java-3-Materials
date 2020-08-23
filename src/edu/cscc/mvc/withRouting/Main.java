@@ -11,14 +11,11 @@ import java.util.Map;
 public class Main {
     public static void main(String[] args) {
         OrderRepository orderRepository = OrderRepository.getInstance();
-        Order order = orderRepository.create(new Order(10.00, "Marty McFly", 2));
-
-        Map<String, Object> params = new HashMap<>();
-        params.put("orderId", order.getId());
+        orderRepository.create(new Order(10.00, "Marty McFly", 2));
 
         MVCContext mvcContext = new MVCContext();
         try {
-            mvcContext.processRequest(new Request("Home", "index", params));
+            mvcContext.processRequest(new Request("Home", "index"));
         } catch (Exception e) {
             e.printStackTrace();
         }

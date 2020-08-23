@@ -18,7 +18,7 @@ public class Main {
 
         MVCContext mvcContext = new MVCContext();
         try {
-            mvcContext.processRequest(new Request("Orders", "show", params));
+            mvcContext.processRequest(new Request("Home", "index", params));
         } catch (Exception e) {
             e.printStackTrace();
         }

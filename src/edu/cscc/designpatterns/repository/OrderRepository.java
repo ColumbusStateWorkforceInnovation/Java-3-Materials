@@ -14,4 +14,6 @@ public interface OrderRepository {
     Order read(UUID id);
 
     Order update(Order order);
+
+    List<Order> readAll();
 }

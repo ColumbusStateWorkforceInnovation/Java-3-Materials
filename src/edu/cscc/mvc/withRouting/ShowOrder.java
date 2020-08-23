@@ -27,4 +27,8 @@ public class ShowOrder extends ApplicationView {
         params.put("orderId", order.getId());
         route("Orders", "index", params);
     }
+
+    public Order getOrder() {
+        return order;
+    }
 }

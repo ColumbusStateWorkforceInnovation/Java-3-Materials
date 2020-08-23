@@ -1,35 +1,36 @@
 package edu.cscc.mvc.withRouting;
 
-import edu.cscc.mvc.withRouting.framework.MVCContext;
-import edu.cscc.mvc.withRouting.framework.MVCView;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
-class HomeControllerTest {
-    private MVCContext context;
-    private HomeController homeController;
+class HomeControllerTest extends MVCTest {
 
     @BeforeEach
     public void setUp() {
-        context = new MVCContext();
-        homeController = new HomeController(context);
+        super.setUp();
+    }
+
+    @Test
+    public void itCanRouteToHomeIndex() {
+        assertRouteExists("Home", "index", HomeController.class);
     }
 
     @Test
     public void itRendersTheHomeIndexView() {
-        homeController.index();
+        routeRequest("Home", "index");
 
-        MVCView view = context.getView();
-        assertEquals(HomeIndex.class, view.getClass());
+        assertViewRendered(HomeIndex.class);
+    }
+
+    @Test
+    public void itCanRouteToHomeGoodbye() {
+        assertRouteExists("Home", "goodbye", HomeController.class);
     }
 
     @Test
     public void itRendersTheGoodbyeView() {
-        homeController.goodbye();
+        routeRequest("Home", "goodbye");
 
-        MVCView view = context.getView();
-        assertEquals(GoodbyeView.class, view.getClass());
+        assertViewRendered(GoodbyeView.class);
     }
 }

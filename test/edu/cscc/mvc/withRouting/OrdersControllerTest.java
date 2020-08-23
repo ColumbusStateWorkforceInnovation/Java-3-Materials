@@ -13,17 +13,14 @@ import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class OrdersControllerTest {
+class OrdersControllerTest extends MVCTest {
 
-    private MVCContext context;
-    private OrdersController ordersController;
     private OrderRepository orderRepository;
     private Order order;
 
     @BeforeEach
     public void setUp() {
-        context = new MVCContext();
-        ordersController = new OrdersController(context);
+        super.setUp();
         orderRepository = OrderRepository.getInstance();
 
         order = new Order(15, "Marty McFly", 2);
@@ -31,11 +28,32 @@ class OrdersControllerTest {
     }
 
     @Test
-    public void itRendersTheSelectOrderView() {
-        context.setRequest(new Request("Orders", "select"));
-        ordersController.select();
+    public void itCanRouteToOrdersIndex() {
+        assertRouteExists("Orders", "index", OrdersController.class);
+    }
 
-        assertEquals(SelectOrder.class, context.getView());
+    @Test
+    public void itRendersOrdersIndex() {
+        routeRequest("Orders", "index");
+        assertViewRendered(OrdersIndex.class);
+    }
+
+    @Test
+    public void itCanRouteToOrdersSelect() {
+        assertRouteExists("Orders", "select", OrdersController.class);
+    }
+
+
+    @Test
+    public void itRendersTheSelectOrderView() {
+        routeRequest("Orders", "select");
+
+        assertViewRendered(SelectOrder.class);
+    }
+
+    @Test
+    public void itCanRouteToOrdersShow() {
+        assertRouteExists("Orders", "show", OrdersController.class);
     }
 
     @Test
@@ -43,12 +61,8 @@ class OrdersControllerTest {
         Map<String, Object> params = new HashMap<>();
         params.put("orderId", order.getId().toString());
 
-        context.setRequest(new Request("Orders", "show", params));
-        ordersController.show();
+        routeRequest("Orders", "show", params);
 
-        assertEquals(ShowOrder.class, context.getView().getClass());
-        ShowOrder view = (ShowOrder)context.getView();
-
-        assertEquals(order.getId(), view.getOrder().getId());
+        assertViewRendered(ShowOrder.class);
     }
 }

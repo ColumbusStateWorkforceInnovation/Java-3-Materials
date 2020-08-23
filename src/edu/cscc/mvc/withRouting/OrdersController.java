@@ -6,6 +6,7 @@ import edu.cscc.mvc.withRouting.framework.ApplicationController;
 import edu.cscc.mvc.withRouting.framework.MVCContext;
 import edu.cscc.mvc.withRouting.framework.Request;
 
+import java.util.List;
 import java.util.UUID;
 
 public class OrdersController extends ApplicationController {
@@ -15,6 +16,11 @@ public class OrdersController extends ApplicationController {
     public OrdersController(MVCContext context) {
         super(context);
         orderRepository = OrderRepository.getInstance();
+    }
+
+    public void index() {
+        List<Order> orders = orderRepository.readAll();
+        render(new OrdersIndex(context, orders));
     }
 
     public void show() {

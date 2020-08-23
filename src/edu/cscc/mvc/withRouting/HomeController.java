@@ -11,8 +11,4 @@ public class HomeController extends ApplicationController {
     public void index() {
         render(new HomeIndex(context));
     }
-
-    public void goodbye() {
-        render(new GoodbyeView(context));
-    }
 }

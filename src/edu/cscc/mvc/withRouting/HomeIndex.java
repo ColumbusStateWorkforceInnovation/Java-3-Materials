@@ -25,11 +25,11 @@ public class HomeIndex extends ApplicationView {
                     route("Orders", "index");
                     break;
                 case 2:
-                    route("Home", "goodbye");
+                    context.setRequest(new ExitRequest());
                     break;
             }
         } catch (InputMismatchException ex) {
-            route("Home", "index");
+            this.show();
         }
     }
 }

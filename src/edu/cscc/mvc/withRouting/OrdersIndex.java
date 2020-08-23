@@ -2,7 +2,6 @@ package edu.cscc.mvc.withRouting;
 
 import edu.cscc.designpatterns.repository.Order;
 import edu.cscc.mvc.withRouting.framework.ApplicationView;
-import edu.cscc.mvc.withRouting.framework.ExitRequest;
 import edu.cscc.mvc.withRouting.framework.MVCContext;
 
 import java.util.InputMismatchException;
@@ -37,7 +36,7 @@ public class OrdersIndex extends ApplicationView {
                     break;
             }
         } catch (InputMismatchException ex) {
-            this.show();
+            route("Orders", "index");
         }
     }
 }

@@ -25,6 +25,6 @@ public class ShowOrder extends ApplicationView {
         System.out.println("Order item count: " + order.getItemCount());
         Map params = new HashMap<>();
         params.put("orderId", order.getId());
-        route("Orders", "edit", params);
+        route("Orders", "index", params);
     }
 }

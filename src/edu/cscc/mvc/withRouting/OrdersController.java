@@ -6,7 +6,6 @@ import edu.cscc.mvc.withRouting.framework.ApplicationController;
 import edu.cscc.mvc.withRouting.framework.MVCContext;
 import edu.cscc.mvc.withRouting.framework.Request;
 
-import java.util.List;
 import java.util.UUID;
 
 public class OrdersController extends ApplicationController {
@@ -18,25 +17,35 @@ public class OrdersController extends ApplicationController {
         orderRepository = OrderRepository.getInstance();
     }
 
-    public void index() {
-        List<Order> orders = orderRepository.readAll();
-        render(new OrdersIndex(context, orders));
-    }
-
     public void show() {
         Order order = orderRepository.read(getOrderIdFromParams());
         render(new ShowOrder(context, order));
     }
 
-    public void select() {
-        render(new SelectOrder(context));
+    public void save() {
+        Order updatedOrder = orderRepository.update(toUpdate());
+        render(new ShowOrder(context, updatedOrder));
+    }
+
+    public void edit() {
+        render(new EditOrder(context, getOrderIdFromParams()));
     }
 
     private UUID getOrderIdFromParams() {
-        return UUID.fromString((String) getRequest().getParams().get("orderId"));
+        return (UUID) getRequest().getParams().get("orderId");
     }
 
     private Request getRequest() {
         return context.getRequest();
+    }
+
+    private Order toUpdate() {
+        UUID orderId = getOrderIdFromParams();
+        String customerName = (String)getRequest().getParams().get("customerName");
+        Double orderTotal = (Double)getRequest().getParams().get("orderTotal");
+        Integer itemCount = (Integer)getRequest().getParams().get("itemCount");
+        Order toUpdate = new Order(orderId, orderTotal, customerName, itemCount);
+
+        return toUpdate;
     }
 }

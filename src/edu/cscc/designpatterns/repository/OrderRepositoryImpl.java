@@ -23,7 +23,7 @@ public class OrderRepositoryImpl implements OrderRepository {
     public Order read(UUID id) {
         Optional<Order> found =
                 orders.stream()
-                        .filter(order -> order.getId() == id)
+                        .filter(order -> order.getId().equals(id))
                         .findFirst();
 
         return found.get();

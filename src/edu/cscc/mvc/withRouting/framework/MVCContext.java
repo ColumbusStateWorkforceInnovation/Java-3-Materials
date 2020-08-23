@@ -35,9 +35,6 @@ public class MVCContext {
                                 + "()");
             }
             view.show();
-            if (request.isExit()) {
-                System.out.println("Goodbye!");
-            }
         } catch(RoutingException ex) {
             throw new RoutingException(
                     "Current view: "
@@ -72,20 +69,19 @@ public class MVCContext {
 
     public void processRequest(Request initialRequest) {
         route(initialRequest);
-        try {
-            action.invoke(resource);
-            render();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
+        while(true) {
+            if (request.isExit()) {
+                System.out.println("Goodbye!");
+                return;
+            }
+            try {
+                action.invoke(resource);
+                render();
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            } catch (InvocationTargetException e) {
+                e.printStackTrace();
+            }
         }
-    }
-
-    public void resetContext() {
-        this.resource = null;
-        this.action = null;
-        this.view = null;
-        this.request = null;
     }
 }

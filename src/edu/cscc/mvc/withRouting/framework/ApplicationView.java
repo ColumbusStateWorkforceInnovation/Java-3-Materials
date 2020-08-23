@@ -16,6 +16,6 @@ public abstract class ApplicationView implements MVCView {
     }
 
     protected void route(String resource, String action, Map params) {
-        context.processRequest(new Request(resource, action, params));
+        context.route(new Request(resource, action, params));
     }
 }

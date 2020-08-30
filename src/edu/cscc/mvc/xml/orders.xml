@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Orders>
+    <Order id="12345">
+        <Customer>
+            <firstName>Stanley</firstName>
+            <lastName>Davis</lastName>
+        </Customer>
+        <Product sku="U234343" />
+        <itemCount>0</itemCount>
+    </Order>
+    <Order id="67890">
+        <Customer>
+            <firstName>Jessica</firstName>
+            <lastName>Alba</lastName>
+        </Customer>
+        <Product sku="Y2342342" />
+        <itemCount>0</itemCount>
+    </Order>
+</Orders>

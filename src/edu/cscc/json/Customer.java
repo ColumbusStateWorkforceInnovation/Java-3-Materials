@@ -1,10 +1,5 @@
 package edu.cscc.json;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlRootElement;
-import java.io.Serializable;
-
 public class Customer {
     private String firstName;
     private String lastName;
@@ -16,6 +11,9 @@ public class Customer {
         this.firstName = firstName;
         this.lastName = lastName;
     }
+
+    // Getters and Setters
+    // toString() method
 
     public String getFirstName() {
         return firstName;

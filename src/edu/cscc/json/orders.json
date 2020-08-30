@@ -6,9 +6,9 @@
       "lastName": "Davis"
     },
     "product": {
-      "sku": "U234343",
-      "itemCount": 0
-    }
+      "sku": "U234343"
+    },
+    "itemCount": 0
   },
   {
     "id": "67890",
@@ -17,8 +17,8 @@
       "lastName": "Alba"
     },
     "product": {
-      "sku": "Y2342342",
-      "itemCount": 0
-    }
+      "sku": "Y2342342"
+    },
+    "itemCount": 0
   }
 ]

@@ -1,6 +1,12 @@
 package edu.cscc.json;
 
-public class Product {
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlRootElement;
+import java.io.Serializable;
+
+public class Product implements Serializable {
     private String sku;
 
     public Product() {

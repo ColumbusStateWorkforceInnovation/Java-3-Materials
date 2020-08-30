@@ -1,12 +1,6 @@
 package edu.cscc.json;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-import java.io.Serializable;
-
-public class Order implements Serializable {
+public class Order {
     private Customer customer;
     private Product product;
     private int itemCount;
@@ -19,6 +13,9 @@ public class Order implements Serializable {
         this.product = product;
         this.itemCount = itemCount;
     }
+
+    //Getters and Setters
+    //toString() method
 
     public Customer getCustomer() {
         return customer;

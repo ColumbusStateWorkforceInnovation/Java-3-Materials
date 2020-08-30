@@ -3,7 +3,10 @@ package edu.cscc.json;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-import java.io.*;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,8 +14,6 @@ import java.util.List;
 public class Main {
     public static void main(String[] args) {
         Gson gson = new Gson();
-        String json = gson.toJson(new Product()); //returns a JSON-formatted string
-        gson.fromJson(json, Product.class); //returns a POJO class from a JSON-formatted string
         Type orderList = new TypeToken<ArrayList<Order>>(){}.getType();
         try {
             List<Order> orders = gson.fromJson(

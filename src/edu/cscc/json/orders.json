@@ -8,7 +8,7 @@
     "product": {
       "sku": "U234343"
     },
-    "itemCount": 0
+    "itemCount": 1
   },
   {
     "id": "67890",
@@ -19,6 +19,6 @@
     "product": {
       "sku": "Y2342342"
     },
-    "itemCount": 0
+    "itemCount": 3
   }
 ]

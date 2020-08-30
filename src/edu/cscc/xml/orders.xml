@@ -6,7 +6,7 @@
             <lastName>Davis</lastName>
         </Customer>
         <Product sku="U234343" />
-        <itemCount>0</itemCount>
+        <itemCount>1</itemCount>
     </Order>
     <Order id="67890">
         <Customer>
@@ -14,6 +14,6 @@
             <lastName>Alba</lastName>
         </Customer>
         <Product sku="Y2342342" />
-        <itemCount>0</itemCount>
+        <itemCount>3</itemCount>
     </Order>
 </Orders>

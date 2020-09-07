@@ -1,14 +1,16 @@
-package edu.cscc.threading;
+package edu.cscc.threading.raceconditions;
 
-public class Account {
+public class AccountImpl implements Account {
     private double balance;
 
-    public Account(double startingBalance) {
+    public AccountImpl(double startingBalance) {
         balance = startingBalance;
     }
 
+    @Override
     public double getBalance() { return balance; }
 
+    @Override
     public void debit(double amount) {
         balance -= amount;
     }

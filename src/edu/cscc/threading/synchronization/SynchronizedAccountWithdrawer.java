@@ -1,12 +1,14 @@
-package edu.cscc.threading;
+package edu.cscc.threading.synchronization;
+
+import edu.cscc.threading.raceconditions.Account;
 
 import java.util.stream.IntStream;
 
-public class AccountWithdrawer extends Thread {
+public class SynchronizedAccountWithdrawer extends Thread {
 
     private Account account;
 
-    public AccountWithdrawer(Account account) {
+    public SynchronizedAccountWithdrawer(Account account) {
         this.account = account;
     }
 
@@ -14,15 +16,17 @@ public class AccountWithdrawer extends Thread {
     public void run() {
         IntStream intStream = IntStream.range(0, 100);
         intStream.forEach(value -> {
-            displayCurrentBalance();
-            double amount = 10;
-            if (account.getBalance() >= amount) {
-                displayWithdrawingMesssage(amount);
-                account.debit(amount);
-                displayCompletedWithdrawalMessage();
-            }
-            if (account.getBalance() < 0) {
-                displayAccountOverdrawnMessage();
+            synchronized (account) {
+                displayCurrentBalance();
+                double amount = 10;
+                if (account.getBalance() >= amount) {
+                    displayWithdrawingMesssage(amount);
+                    account.debit(amount);
+                    displayCompletedWithdrawalMessage();
+                }
+                if (account.getBalance() < 0) {
+                    displayAccountOverdrawnMessage();
+                }
             }
         });
     }

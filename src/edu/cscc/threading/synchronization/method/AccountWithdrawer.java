@@ -1,4 +1,4 @@
-package edu.cscc.threading.raceconditions;
+package edu.cscc.threading.synchronization.method;
 
 import java.util.stream.IntStream;
 
@@ -16,8 +16,8 @@ public class AccountWithdrawer extends Thread {
         intStream.forEach(value -> {
             displayCurrentBalance();
             double amount = 100;
-            displayWithdrawingMesssage(amount);
-            account.debit(amount);
+                displayWithdrawingMesssage(amount);
+                account.debit(amount);
             if (account.getBalance() < 0) {
                 displayAccountOverdrawnMessage();
             }

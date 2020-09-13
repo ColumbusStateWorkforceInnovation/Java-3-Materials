@@ -1,6 +1,6 @@
-package edu.cscc.threading.raceconditions;
+package edu.cscc.threading.synchronization.method;
 
-public class RaceConditionDemo {
+public class SynchronizedMethodDemo {
 
     public static void main(String[] args) {
         Account account = new Account(1000);

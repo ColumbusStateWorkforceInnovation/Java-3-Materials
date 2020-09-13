@@ -1,14 +1,14 @@
-package edu.cscc.threading.synchronization;
+package edu.cscc.threading.synchronization.block;
 
 import edu.cscc.threading.raceconditions.Account;
 
 import java.util.stream.IntStream;
 
-public class SynchronizedAccountWithdrawer extends Thread {
+public class AccountWithdrawer extends Thread {
 
     private Account account;
 
-    public SynchronizedAccountWithdrawer(Account account) {
+    public AccountWithdrawer(Account account) {
         this.account = account;
     }
 

@@ -5,7 +5,7 @@ public class OrderIdGeneratorDemo {
 
         OrderIdGenerator orderIdGenerator = new OrderIdGenerator();
         Runnable orderGeneratorLambda = () -> {
-            while(true) {
+            while(orderIdGenerator.getCurrentId() < 1000) {
                 try {
                     Thread.sleep(100l);
                 } catch (InterruptedException e) {

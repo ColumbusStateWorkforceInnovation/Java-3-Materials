@@ -11,7 +11,9 @@ public class OrderIdGeneratorDemo {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                System.out.println(orderIdGenerator.generateId());
+                synchronized (orderIdGenerator) {
+                    System.out.println(orderIdGenerator.generateId());
+                }
             }
         };
 

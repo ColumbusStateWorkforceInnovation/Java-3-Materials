@@ -7,4 +7,8 @@ public class OrderIdGenerator {
     public synchronized String generateId() {
         return "339458" + "" + ++currentId;
     }
+
+    public synchronized int getCurrentId() {
+        return currentId;
+    }
 }

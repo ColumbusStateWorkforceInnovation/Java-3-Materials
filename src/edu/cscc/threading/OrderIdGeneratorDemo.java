@@ -5,14 +5,16 @@ public class OrderIdGeneratorDemo {
 
         OrderIdGenerator orderIdGenerator = new OrderIdGenerator();
         Runnable orderGeneratorLambda = () -> {
-            while(orderIdGenerator.getCurrentId() < 1000) {
-                try {
-                    Thread.sleep(100l);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+            synchronized (orderIdGenerator) {
+                while(orderIdGenerator.getCurrentId() < 1000) {
+                    try {
+                        Thread.sleep(100l);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
 
-                System.out.println(orderIdGenerator.generateId());
+                    System.out.println(orderIdGenerator.generateId());
+                }
             }
         };
 

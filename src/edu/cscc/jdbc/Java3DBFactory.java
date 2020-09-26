@@ -2,6 +2,7 @@ package edu.cscc.jdbc;
 
 import com.mysql.cj.jdbc.MysqlDataSource;
 
+import javax.sql.DataSource;
 import java.util.Properties;
 
 public class Java3DBFactory {
@@ -9,7 +10,7 @@ public class Java3DBFactory {
     private static final String MYSQL_DB_USERNAME = "MYSQL_DB_USERNAME";
     private static final String MYSQL_DB_PASSWORD = "MYSQL_DB_PASSWORD";
 
-    public static MysqlDataSource buildDataSource() {
+    public static DataSource buildDataSource() {
         Properties properties = buildConnectionProperties();
 
         MysqlDataSource dataSource = new MysqlDataSource();

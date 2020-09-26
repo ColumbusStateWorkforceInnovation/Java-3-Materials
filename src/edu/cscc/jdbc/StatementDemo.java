@@ -1,7 +1,6 @@
 package edu.cscc.jdbc;
 
-import com.mysql.cj.jdbc.MysqlDataSource;
-
+import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -9,7 +8,7 @@ import java.sql.Statement;
 
 public class StatementDemo {
     public static void main(String[] args) {
-        MysqlDataSource dataSource = Java3DBFactory.buildDataSource();
+        DataSource dataSource = Java3DBFactory.buildDataSource();
 
         try {
             Connection connection = dataSource.getConnection();

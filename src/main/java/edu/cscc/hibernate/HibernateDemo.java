@@ -17,11 +17,12 @@ public class HibernateDemo {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         Company company = entityManager.find(Company.class, 1);
         System.out.println("Company name: " + company.getName());
+        company.getInsuredMembers().forEach(insuredMember -> System.out.println(insuredMember));
 
         entityManager.getTransaction().begin();
 
         InsurancePolicy accidentalDeathDismembermentPolicy = new InsurancePolicy(InsurancePolicy.ACCIDENTAL_DEATH_DISMEMBERMENT);
-        accidentalDeathDismembermentPolicy.setCompanyId(company.getId());
+        accidentalDeathDismembermentPolicy.setCompany(company);
         entityManager.persist(accidentalDeathDismembermentPolicy);
         String insurancePolicyQuery = "select ip from InsurancePolicy ip where ip.type = :type";
         TypedQuery<InsurancePolicy> query =
@@ -33,7 +34,7 @@ public class HibernateDemo {
         System.out.println(foundPolicy);
 
         InsuredMember insuredMember = new InsuredMember("Baker", "Mayfield");
-        insuredMember.setCompanyId(company.getId());
+        insuredMember.setCompany(company);
         entityManager.persist(insuredMember);
 
         String insuredMemberQuery = "select im from InsuredMember im order by im.id desc";

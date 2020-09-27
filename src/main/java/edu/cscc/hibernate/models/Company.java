@@ -19,13 +19,18 @@ public class Company {
     @OneToMany(mappedBy = "company")
     private List<InsuredMember> insuredMembers;
 
+    @OneToMany(mappedBy = "company")
+    private List<InsurancePolicy> insurancePolicies;
+
     public Company() {
         insuredMembers = new ArrayList<>();
+        insurancePolicies = new ArrayList<>();
     }
 
     public Company(String name) {
         this.name = name;
         insuredMembers = new ArrayList<>();
+        insurancePolicies = new ArrayList<>();
     }
 
     //Getters, setters, other methods.
@@ -52,6 +57,14 @@ public class Company {
 
     public void setInsuredMembers(List<InsuredMember> insuredMembers) {
         this.insuredMembers = insuredMembers;
+    }
+
+    public List<InsurancePolicy> getInsurancePolicies() {
+        return insurancePolicies;
+    }
+
+    public void setInsurancePolicies(List<InsurancePolicy> insurancePolicies) {
+        this.insurancePolicies = insurancePolicies;
     }
 
     @Override

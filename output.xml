@@ -1,0 +1,1 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Orders><Order><Customer><firstName>Stanley</firstName><lastName>Davis</lastName></Customer><Product sku="U234343"/><itemCount>1</itemCount></Order><Order><Customer><firstName>Jessica</firstName><lastName>Alba</lastName></Customer><Product sku="Y2342342"/><itemCount>3</itemCount></Order></Orders>

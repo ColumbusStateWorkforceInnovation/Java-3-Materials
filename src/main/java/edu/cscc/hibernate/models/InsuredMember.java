@@ -3,24 +3,32 @@ package edu.cscc.hibernate.models;
 import javax.persistence.*;
 import java.util.Objects;
 
-    @Entity
-    @Table(name = "insured_members")
-    public class InsuredMember {
+//On the InsuredMember
+@Entity
+@Table(name = "insured_members")
+@NamedQuery(
+        name = InsuredMember.FIND_BY_NAME,
+        query = "select im from InsuredMember im where im.firstName = :firstName and im.lastName = :lastName"
+)
+public class InsuredMember {
 
-        @Id
-        @GeneratedValue(strategy = GenerationType.IDENTITY)
-        private Integer id;
+    public static final String FIND_BY_NAME = "InsuredMember.findByName";
 
-        @Column(name = "first_name")
-        private String firstName;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
 
-        @Column(name = "last_name")
-        private String lastName;
+    @Column(name = "first_name")
+    private String firstName;
 
-        @Column(name = "company_id")
-        private Integer companyId;
+    @Column(name = "last_name")
+    private String lastName;
 
-        public InsuredMember() {}
+    @ManyToOne()
+    private Company company;
+
+    public InsuredMember() {
+    }
 
     public InsuredMember(String firstName, String lastName) {
         this.firstName = firstName;
@@ -51,12 +59,12 @@ import java.util.Objects;
         this.lastName = lastName;
     }
 
-    public Integer getCompanyId() {
-        return companyId;
+    public Company getCompany() {
+        return company;
     }
 
-    public void setCompanyId(Integer companyId) {
-        this.companyId = companyId;
+    public void setCompany(Company company) {
+        this.company = company;
     }
 
     @Override
@@ -67,12 +75,12 @@ import java.util.Objects;
         return Objects.equals(id, that.id) &&
                 Objects.equals(firstName, that.firstName) &&
                 Objects.equals(lastName, that.lastName) &&
-                Objects.equals(companyId, that.companyId);
+                Objects.equals(company, that.company);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, firstName, lastName, companyId);
+        return Objects.hash(id, firstName, lastName, company);
     }
 
     @Override
@@ -81,7 +89,7 @@ import java.util.Objects;
                 "id=" + id +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
-                ", companyId=" + companyId +
+                ", company=" + company +
                 '}';
     }
 }

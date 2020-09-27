@@ -1,4 +1,6 @@
-package edu.cscc.jdbc;
+package edu.cscc.jdbc.statements;
+
+import edu.cscc.jdbc.Java3DBFactory;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
@@ -9,15 +11,28 @@ import java.sql.Statement;
 public class StatementDemo {
     public static void main(String[] args) {
         DataSource dataSource = Java3DBFactory.buildDataSource();
+        Connection connection = null;
 
         try {
-            Connection connection = dataSource.getConnection();
+            connection = dataSource.getConnection();
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery("Select c.id, c.name from companies c");
             while (resultSet.next()) {
-                int id = resultSet.getInt("id");
-                String name = resultSet.getString("name");
+                int id = resultSet.getInt(1);
+                String name = resultSet.getString(2);
                 System.out.println("Company: " + "id: " + id + ", name: " + name);
+            }
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+        } finally {
+            closeConnection(connection);
+        }
+    }
+
+    private static void closeConnection(Connection connection) {
+        try {
+            if (connection != null && !connection.isClosed()) {
+                connection.close();;
             }
         } catch (SQLException exception) {
             exception.printStackTrace();

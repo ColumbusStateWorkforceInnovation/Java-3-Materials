@@ -8,6 +8,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import static edu.cscc.jdbc.statements.ConnectionCloser.closeConnection;
+
 public class StatementDemo {
     public static void main(String[] args) {
         DataSource dataSource = Java3DBFactory.buildDataSource();
@@ -26,16 +28,6 @@ public class StatementDemo {
             exception.printStackTrace();
         } finally {
             closeConnection(connection);
-        }
-    }
-
-    private static void closeConnection(Connection connection) {
-        try {
-            if (connection != null && !connection.isClosed()) {
-                connection.close();;
-            }
-        } catch (SQLException exception) {
-            exception.printStackTrace();
         }
     }
 }

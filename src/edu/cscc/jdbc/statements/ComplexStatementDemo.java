@@ -5,6 +5,8 @@ import edu.cscc.jdbc.Java3DBFactory;
 import javax.sql.DataSource;
 import java.sql.*;
 
+import static edu.cscc.jdbc.statements.ConnectionCloser.closeConnection;
+
 public class ComplexStatementDemo {
     public static void main(String[] args) {
         DataSource dataSource = Java3DBFactory.buildDataSource();
@@ -31,16 +33,6 @@ public class ComplexStatementDemo {
             exception.printStackTrace();
         } finally {
             closeConnection(connection);
-        }
-    }
-
-    private static void closeConnection(Connection connection) {
-        try {
-            if (connection != null && !connection.isClosed()) {
-                connection.close();;
-            }
-        } catch (SQLException exception) {
-            exception.printStackTrace();
         }
     }
 }

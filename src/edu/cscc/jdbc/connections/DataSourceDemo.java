@@ -1,12 +1,13 @@
-package edu.cscc.jdbc;
+package edu.cscc.jdbc.connections;
 
 import com.mysql.cj.jdbc.MysqlDataSource;
 
+import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Properties;
 
-public class JDBCConnectionDemo {
+public class DataSourceDemo {
 
     private static final String MYSQL_DB_URL = "MYSQL_DB_URL";
     private static final String MYSQL_DB_USERNAME = "MYSQL_DB_USERNAME";
@@ -18,10 +19,7 @@ public class JDBCConnectionDemo {
         properties.setProperty(MYSQL_DB_USERNAME, "root");
         properties.setProperty(MYSQL_DB_PASSWORD, "password");
 
-        MysqlDataSource dataSource = new MysqlDataSource();
-        dataSource.setURL(properties.getProperty(MYSQL_DB_URL));
-        dataSource.setUser(properties.getProperty(MYSQL_DB_USERNAME));
-        dataSource.setPassword(properties.getProperty(MYSQL_DB_PASSWORD));
+        DataSource dataSource = getDataSource(properties);
 
         try {
             Connection connection = dataSource.getConnection();
@@ -30,5 +28,14 @@ public class JDBCConnectionDemo {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
+    }
+
+    private static DataSource getDataSource(Properties properties) {
+        MysqlDataSource dataSource = new MysqlDataSource();
+        dataSource.setURL(properties.getProperty(MYSQL_DB_URL));
+        dataSource.setUser(properties.getProperty(MYSQL_DB_USERNAME));
+        dataSource.setPassword(properties.getProperty(MYSQL_DB_PASSWORD));
+
+        return dataSource;
     }
 }

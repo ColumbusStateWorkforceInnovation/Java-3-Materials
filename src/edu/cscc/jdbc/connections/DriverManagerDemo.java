@@ -1,4 +1,4 @@
-package edu.cscc.jdbc;
+package edu.cscc.jdbc.connections;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

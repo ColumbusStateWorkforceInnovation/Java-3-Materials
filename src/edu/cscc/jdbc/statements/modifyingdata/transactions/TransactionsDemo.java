@@ -20,25 +20,21 @@ public class TransactionsDemo {
             connection = dataSource.getConnection();
             connection.setAutoCommit(false); //Nothing will commit until we explicitly call commit.
             System.out.println("Before inserting...");
-            getMemberCount(connection);
-            String insertSql =
-                    "insert into insured_members (company_id, first_name, last_Name) "
-                    + " values (?, ?, ?)";
-            PreparedStatement preparedStatement = connection.prepareStatement(insertSql);
-            addMembers(members, preparedStatement);
-            getMemberCount(connection);
+            displayMemberCount(connection);
+            addMembers(members, connection);
+            displayMemberCount(connection);
             System.out.println("Causing an error...");
             //Comment the next line out to allow the transaction to commit.
             int value = 1 / 0; //Cause an exception to occur so we roll back the transaction.
             connection.commit();
-            getMemberCount(connection);
+            displayMemberCount(connection);
         } catch (Exception exception) {
             exception.printStackTrace();
             try {
                 if (connection != null && !connection.isClosed()) {
                     System.out.println("Rolling back the transaction...");
                     connection.rollback();
-                    getMemberCount(connection);
+                    displayMemberCount(connection);
                 }
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
@@ -62,7 +58,11 @@ public class TransactionsDemo {
         return members;
     }
 
-    private static void addMembers(List<Member> members, PreparedStatement preparedStatement) {
+    private static void addMembers(List<Member> members, Connection connection) throws SQLException {
+        String insertSql =
+                "insert into insured_members (company_id, first_name, last_Name) "
+                        + " values (?, ?, ?)";
+        PreparedStatement preparedStatement = connection.prepareStatement(insertSql);
         members.forEach(member -> {
             try {
                 System.out.println("Adding member: " + member);
@@ -76,7 +76,7 @@ public class TransactionsDemo {
         });
     }
 
-    private static void getMemberCount(Connection connection) throws SQLException {
+    private static void displayMemberCount(Connection connection) throws SQLException {
         Statement statement = connection.createStatement();
         ResultSet resultSet = statement.executeQuery("select count(im.id) from insured_members im");
         resultSet.next();

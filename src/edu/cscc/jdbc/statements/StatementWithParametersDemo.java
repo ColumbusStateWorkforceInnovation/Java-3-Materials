@@ -3,11 +3,14 @@ package edu.cscc.jdbc.statements;
 import edu.cscc.jdbc.Java3DBFactory;
 
 import javax.sql.DataSource;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 import static edu.cscc.jdbc.statements.ConnectionCloser.closeConnection;
 
-public class ComplexStatementDemo {
+public class StatementWithParametersDemo {
     public static void main(String[] args) {
         DataSource dataSource = Java3DBFactory.buildDataSource();
         Connection connection = null;
@@ -16,10 +19,12 @@ public class ComplexStatementDemo {
             connection = dataSource.getConnection();
             Statement statement = connection.createStatement();
 
+            String companyId = "1";
             String query =
                     "select c.name, im.first_name, im.last_name"
                     + " from companies c "
-                    + " inner join insured_members im on c.id = im.company_id";
+                    + " inner join insured_members im on c.id = im.company_id"
+                    + " where c.id = " + companyId;
 
             ResultSet resultSet = statement.executeQuery(query);
             outputResults(resultSet);

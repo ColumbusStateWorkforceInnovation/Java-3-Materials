@@ -19,15 +19,19 @@ public class StatementDemo {
             connection = dataSource.getConnection();
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery("Select c.id, c.name from companies c");
-            while (resultSet.next()) {
-                int id = resultSet.getInt(1);
-                String name = resultSet.getString(2);
-                System.out.println("Company: " + "id: " + id + ", name: " + name);
-            }
+            outputResults(resultSet);
         } catch (SQLException exception) {
             exception.printStackTrace();
         } finally {
             closeConnection(connection);
+        }
+    }
+
+    private static void outputResults(ResultSet resultSet) throws SQLException {
+        while (resultSet.next()) {
+            int id = resultSet.getInt(1);
+            String name = resultSet.getString(2);
+            System.out.println("Company: " + "id: " + id + ", name: " + name);
         }
     }
 }

@@ -39,8 +39,8 @@ alter table insured_member_insurance_policies add foreign key (insurance_policy_
 
 -- companies
 insert into companies (name) values ('Book and Cookie');
-insert into companies (name) values ("Winter's Wonderland");
-insert into companies (name) values ("Bouncy Castle Playland");
+insert into companies (name) values ('Winter\'s Wonderland');
+insert into companies (name) values ('Bouncy Castle Playland');
 
 -- policies
 insert into insurance_policies (company_id, type)

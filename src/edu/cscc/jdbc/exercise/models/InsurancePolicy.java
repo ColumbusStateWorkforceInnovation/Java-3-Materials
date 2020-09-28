@@ -1,4 +1,4 @@
-package edu.cscc.jdbc.exercise;
+package edu.cscc.jdbc.exercise.models;
 
 public class InsurancePolicy {
 

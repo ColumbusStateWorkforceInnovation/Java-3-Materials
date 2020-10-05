@@ -14,6 +14,8 @@ public class Company {
         this.name = name;
     }
 
+    //Getters and Setters...
+
     public Integer getId() {
         return id;
     }
@@ -29,6 +31,8 @@ public class Company {
     public void setName(String name) {
         this.name = name;
     }
+
+    //Other methods...
 
     @Override
     public String toString() {

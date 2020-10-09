@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence xmlns="http://java.sun.com/xml/ns/persistence" version="1.0">
-    <persistence-unit name="LacklusterVideo">
+    <persistence-unit name="Java3Demo">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
         <!-- Add classes here -->
-<!--        <class>edu.cscc.models.Order</class>-->
+        <class>edu.cscc.hibernate.models.Company</class>
         <exclude-unlisted-classes />
         <properties>
             <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"/>

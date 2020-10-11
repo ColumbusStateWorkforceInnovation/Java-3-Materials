@@ -3,30 +3,39 @@ create database java_3_db;
 
 use java_3_db;
 
+drop table if exists insured_member_insurance_policies;
 drop table if exists insurance_policies;
 drop table if exists insured_members;
 drop table if exists companies;
 
 create table companies (
-id int(9) unsigned auto_increment primary key,
-name varchar(255) not null
+                           id int(9) unsigned auto_increment primary key,
+                           name varchar(255) not null
 );
 
 create table insured_members (
-id int(9) unsigned auto_increment primary key,
-first_name varchar(255) not null,
-last_name varchar(255) not null,
-company_id int(9) unsigned not null
+                                 id int(9) unsigned auto_increment primary key,
+                                 first_name varchar(255) not null,
+                                 last_name varchar(255) not null,
+                                 company_id int(9) unsigned not null
 );
 
 create table insurance_policies (
-id int(9) unsigned auto_increment primary key,
-company_id int(9) unsigned not null,
-type varchar(30) not null
+                                    id int(9) unsigned auto_increment primary key,
+                                    company_id int(9) unsigned not null,
+                                    type varchar(30) not null
+);
+
+create table insured_member_insurance_policies (
+                                                     id int(9) unsigned auto_increment primary key,
+                                                     insured_member_id int(9) unsigned not null,
+                                                     insurance_policy_id int(9) unsigned not null
 );
 
 alter table insured_members add foreign key (company_id) references companies(id);
 alter table insurance_policies add foreign key (company_id) references companies(id);
+alter table insured_member_insurance_policies add foreign key (insured_member_id) references insured_members(id);
+alter table insured_member_insurance_policies add foreign key (insurance_policy_id) references insurance_policies(id);
 
 -- companies
 insert into companies (name) values ('Book and Cookie');
@@ -73,3 +82,12 @@ values (3, 'Everett', 'Morrison');
 
 insert into insured_members (company_id, first_name, last_name)
 values (3, 'Anton', 'Wolff');
+
+insert into insured_member_insurance_policies(insured_member_id, insurance_policy_id)
+values (1, 1);
+
+insert into insured_member_insurance_policies(insured_member_id, insurance_policy_id)
+values (1, 2);
+
+insert into insured_member_insurance_policies(insured_member_id, insurance_policy_id)
+values (1, 3);

@@ -7,9 +7,13 @@ import java.util.Objects;
 @Table(name = "insurance_policies")
 public class InsurancePolicy {
 
+    public static final String ACCIDENTAL_DEATH_DISMEMBERMENT = "accidental-death-dismemberment";
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
+    @Column(name = "company_id")
+    private Integer companyId;
 
     @Column(name = "type")
     private String type;
@@ -38,24 +42,34 @@ public class InsurancePolicy {
         this.type = type;
     }
 
+    public Integer getCompanyId() {
+        return companyId;
+    }
+
+    public void setCompanyId(Integer companyId) {
+        this.companyId = companyId;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         InsurancePolicy that = (InsurancePolicy) o;
         return Objects.equals(id, that.id) &&
+                Objects.equals(companyId, that.companyId) &&
                 Objects.equals(type, that.type);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, type);
+        return Objects.hash(id, companyId, type);
     }
 
     @Override
     public String toString() {
         return "InsurancePolicy{" +
                 "id=" + id +
+                ", companyId=" + companyId +
                 ", type='" + type + '\'' +
                 '}';
     }

@@ -3,9 +3,16 @@ package edu.cscc.hibernate.models;
 import javax.persistence.*;
 import java.util.Objects;
 
+//On the InsuredMember
 @Entity
 @Table(name = "insured_members")
+@NamedQuery(
+        name = InsuredMember.FIND_BY_NAME,
+        query = "select im from InsuredMember im where im.firstName = :firstName and im.lastName = :lastName"
+)
 public class InsuredMember {
+
+    public static final String FIND_BY_NAME = "InsuredMember.findByName";
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

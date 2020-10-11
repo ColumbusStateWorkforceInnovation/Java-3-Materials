@@ -23,6 +23,11 @@ public class Company {
         insuredMembers = new ArrayList<>();
     }
 
+    public Company(String name) {
+        this.name = name;
+        insuredMembers = new ArrayList<>();
+    }
+
     //Getters, setters, other methods.
 
     public Integer getId() {

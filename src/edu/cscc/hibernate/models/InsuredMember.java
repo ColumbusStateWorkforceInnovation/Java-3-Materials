@@ -3,24 +3,25 @@ package edu.cscc.hibernate.models;
 import javax.persistence.*;
 import java.util.Objects;
 
-    @Entity
-    @Table(name = "insured_members")
-    public class InsuredMember {
+@Entity
+@Table(name = "insured_members")
+public class InsuredMember {
 
-        @Id
-        @GeneratedValue(strategy = GenerationType.IDENTITY)
-        private Integer id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
 
-        @Column(name = "first_name")
-        private String firstName;
+    @Column(name = "first_name")
+    private String firstName;
 
-        @Column(name = "last_name")
-        private String lastName;
+    @Column(name = "last_name")
+    private String lastName;
 
-        @Column(name = "company_id")
-        private Integer companyId;
+    @ManyToOne()
+    private Company company;
 
-        public InsuredMember() {}
+    public InsuredMember() {
+    }
 
     public InsuredMember(String firstName, String lastName) {
         this.firstName = firstName;
@@ -51,12 +52,12 @@ import java.util.Objects;
         this.lastName = lastName;
     }
 
-    public Integer getCompanyId() {
-        return companyId;
+    public Company getCompany() {
+        return company;
     }
 
-    public void setCompanyId(Integer companyId) {
-        this.companyId = companyId;
+    public void setCompany(Company company) {
+        this.company = company;
     }
 
     @Override
@@ -67,12 +68,12 @@ import java.util.Objects;
         return Objects.equals(id, that.id) &&
                 Objects.equals(firstName, that.firstName) &&
                 Objects.equals(lastName, that.lastName) &&
-                Objects.equals(companyId, that.companyId);
+                Objects.equals(company, that.company);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, firstName, lastName, companyId);
+        return Objects.hash(id, firstName, lastName, company);
     }
 
     @Override
@@ -81,7 +82,7 @@ import java.util.Objects;
                 "id=" + id +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
-                ", companyId=" + companyId +
+                ", company=" + company +
                 '}';
     }
 }

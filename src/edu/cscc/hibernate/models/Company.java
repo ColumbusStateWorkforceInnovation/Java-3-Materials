@@ -1,6 +1,8 @@
 package edu.cscc.hibernate.models;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -14,7 +16,12 @@ public class Company {
     @Column(name = "name")
     private String name;
 
-    public Company() {}
+    @OneToMany(mappedBy = "company")
+    private List<InsuredMember> insuredMembers;
+
+    public Company() {
+        insuredMembers = new ArrayList<>();
+    }
 
     //Getters, setters, other methods.
 
@@ -32,6 +39,14 @@ public class Company {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public List<InsuredMember> getInsuredMembers() {
+        return insuredMembers;
+    }
+
+    public void setInsuredMembers(List<InsuredMember> insuredMembers) {
+        this.insuredMembers = insuredMembers;
     }
 
     @Override

@@ -3,30 +3,34 @@ package edu.cscc.hibernate;
 import edu.cscc.hibernate.models.Company;
 import edu.cscc.hibernate.models.InsurancePolicy;
 import edu.cscc.hibernate.models.InsuredMember;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
+import java.io.File;
 import java.util.List;
 
 public class HibernateDemo {
 
     public static void main(String[] args) {
-        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("Java3Demo");
-        EntityManager entityManager = entityManagerFactory.createEntityManager();
-        Company company = entityManager.find(Company.class, 1);
+        SessionFactory sessionFactory = new Configuration().configure(new File("resources/META-INF/hibernate.cfg.xml")).buildSessionFactory();
+        Session session = sessionFactory.openSession();
+        Company company = session.find(Company.class, 1);
         System.out.println("Company name: " + company.getName());
         company.getInsuredMembers().forEach(insuredMember -> System.out.println(insuredMember));
 
-        entityManager.getTransaction().begin();
+        session.getTransaction().begin();
 
         InsurancePolicy accidentalDeathDismembermentPolicy = new InsurancePolicy(InsurancePolicy.ACCIDENTAL_DEATH_DISMEMBERMENT);
         accidentalDeathDismembermentPolicy.setCompanyId(company.getId());
-        entityManager.persist(accidentalDeathDismembermentPolicy);
+        session.persist(accidentalDeathDismembermentPolicy);
         String insurancePolicyQuery = "select ip from InsurancePolicy ip where ip.type = :type";
         TypedQuery<InsurancePolicy> query =
-                entityManager.createQuery(insurancePolicyQuery, InsurancePolicy.class);
+                session.createQuery(insurancePolicyQuery, InsurancePolicy.class);
         query.setParameter("type", InsurancePolicy.ACCIDENTAL_DEATH_DISMEMBERMENT);
         List<InsurancePolicy> insurancePolicies = query.getResultList();
 
@@ -35,15 +39,16 @@ public class HibernateDemo {
 
         InsuredMember insuredMember = new InsuredMember("Baker", "Mayfield");
         insuredMember.setCompany(company);
-        entityManager.persist(insuredMember);
+        session.persist(insuredMember);
 
         String insuredMemberQuery = "select im from InsuredMember im order by im.id desc";
-        InsuredMember foundMember = (InsuredMember) entityManager.createQuery(insuredMemberQuery).getResultList().get(0);
+        InsuredMember foundMember = (InsuredMember) session.createQuery(insuredMemberQuery).getResultList().get(0);
         System.out.println(foundMember);
 
-        entityManager.remove(foundPolicy);
-        entityManager.remove(foundMember);
+        session.remove(foundPolicy);
+        session.remove(foundMember);
 
-        entityManager.getTransaction().commit();
+        session.getTransaction().rollback();
+        session.close();
     }
 }

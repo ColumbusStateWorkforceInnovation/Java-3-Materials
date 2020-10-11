@@ -4,6 +4,7 @@
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
         <!-- Add classes here -->
         <class>edu.cscc.hibernate.models.Company</class>
+        <class>edu.cscc.hibernate.models.InsurancePolicy</class>
         <exclude-unlisted-classes />
         <properties>
             <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"/>

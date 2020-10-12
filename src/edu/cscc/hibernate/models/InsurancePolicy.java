@@ -1,6 +1,8 @@
 package edu.cscc.hibernate.models;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -12,16 +14,29 @@ public class InsurancePolicy {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "company_id")
-    private Integer companyId;
+    //Other properties
+    @ManyToOne
+    private Company company;
 
     @Column(name = "type")
     private String type;
 
-    public InsurancePolicy() {}
+    @ManyToMany(mappedBy = "insurancePolicies")
+    private List<InsuredMember> insuredMembers;
+
+    public InsurancePolicy() {
+        insuredMembers = new ArrayList<>();
+    }
 
     public InsurancePolicy(String type) {
         this.type = type;
+        insuredMembers = new ArrayList<>();
+    }
+
+    public InsurancePolicy(Company company, String type) {
+        this.company = company;
+        this.type = type;
+        insuredMembers = new ArrayList<>();
     }
 
     //Getters and setters, other methods
@@ -42,12 +57,20 @@ public class InsurancePolicy {
         this.type = type;
     }
 
-    public Integer getCompanyId() {
-        return companyId;
+    public Company getCompany() {
+        return company;
     }
 
-    public void setCompanyId(Integer companyId) {
-        this.companyId = companyId;
+    public void setCompany(Company company) {
+        this.company = company;
+    }
+
+    public List<InsuredMember> getInsuredMembers() {
+        return insuredMembers;
+    }
+
+    public void setInsuredMembers(List<InsuredMember> insuredMembers) {
+        this.insuredMembers = insuredMembers;
     }
 
     @Override
@@ -56,20 +79,18 @@ public class InsurancePolicy {
         if (o == null || getClass() != o.getClass()) return false;
         InsurancePolicy that = (InsurancePolicy) o;
         return Objects.equals(id, that.id) &&
-                Objects.equals(companyId, that.companyId) &&
                 Objects.equals(type, that.type);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, companyId, type);
+        return Objects.hash(id, type);
     }
 
     @Override
     public String toString() {
         return "InsurancePolicy{" +
                 "id=" + id +
-                ", companyId=" + companyId +
                 ", type='" + type + '\'' +
                 '}';
     }

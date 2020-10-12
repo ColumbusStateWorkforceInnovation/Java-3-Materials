@@ -22,7 +22,7 @@ public class HibernateDemo {
         entityManager.getTransaction().begin();
 
         InsurancePolicy accidentalDeathDismembermentPolicy = new InsurancePolicy(InsurancePolicy.ACCIDENTAL_DEATH_DISMEMBERMENT);
-        accidentalDeathDismembermentPolicy.setCompanyId(company.getId());
+        accidentalDeathDismembermentPolicy.setCompany(company);
         entityManager.persist(accidentalDeathDismembermentPolicy);
         String insurancePolicyQuery = "select ip from InsurancePolicy ip where ip.type = :type";
         TypedQuery<InsurancePolicy> query =

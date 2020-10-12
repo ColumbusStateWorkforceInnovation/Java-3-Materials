@@ -1,6 +1,8 @@
 package edu.cscc.hibernate.models;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 //On the InsuredMember
@@ -24,15 +26,23 @@ public class InsuredMember {
     @Column(name = "last_name")
     private String lastName;
 
-    @ManyToOne()
+    @ManyToOne
     private Company company;
 
+    @ManyToMany
+    @JoinTable(name = "insured_member_insurance_policies",
+            joinColumns = @JoinColumn(name = "insured_member_id"),
+            inverseJoinColumns = @JoinColumn(name = "insurance_policy_id"))
+    private List<InsurancePolicy> insurancePolicies;
+
     public InsuredMember() {
+        this.insurancePolicies = new ArrayList<>();
     }
 
     public InsuredMember(String firstName, String lastName) {
         this.firstName = firstName;
         this.lastName = lastName;
+        this.insurancePolicies = new ArrayList<>();
     }
 
     public Integer getId() {
@@ -67,6 +77,14 @@ public class InsuredMember {
         this.company = company;
     }
 
+    public List<InsurancePolicy> getInsurancePolicies() {
+        return insurancePolicies;
+    }
+
+    public void setInsurancePolicies(List<InsurancePolicy> insurancePolicies) {
+        this.insurancePolicies = insurancePolicies;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -74,13 +92,12 @@ public class InsuredMember {
         InsuredMember that = (InsuredMember) o;
         return Objects.equals(id, that.id) &&
                 Objects.equals(firstName, that.firstName) &&
-                Objects.equals(lastName, that.lastName) &&
-                Objects.equals(company, that.company);
+                Objects.equals(lastName, that.lastName);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, firstName, lastName, company);
+        return Objects.hash(id, firstName, lastName);
     }
 
     @Override
@@ -89,7 +106,6 @@ public class InsuredMember {
                 "id=" + id +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
-                ", company=" + company +
                 '}';
     }
 }

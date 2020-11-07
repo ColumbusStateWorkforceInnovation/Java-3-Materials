@@ -10,3 +10,12 @@ mysql-data
 
 .idea
 *.iml
+*.ipr
+*.iws
+out
+
+# Misc
+*.log
+
+output.xml
+output.json

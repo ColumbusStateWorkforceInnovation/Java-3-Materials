@@ -13,7 +13,6 @@ gradle-app.setting
 
 # IntelliJ
 .idea/workspace.xml
-*.iml
 *.ipr
 *.iws
 out

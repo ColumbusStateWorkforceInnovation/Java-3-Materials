@@ -19,3 +19,6 @@ out
 
 # Misc
 *.log
+
+output.xml
+output.json

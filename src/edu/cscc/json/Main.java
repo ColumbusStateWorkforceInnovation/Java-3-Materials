@@ -16,8 +16,9 @@ public class Main {
         Gson gson = new Gson();
         Type orderList = new TypeToken<ArrayList<Order>>(){}.getType();
         try {
+            String ordersFilePath = args[0];
             List<Order> orders = gson.fromJson(
-                    new FileReader("./src/edu/cscc/json/orders.json"),
+                    new FileReader(ordersFilePath),
                     orderList
             );
             orders.forEach(System.out::println);

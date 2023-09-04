@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project name="AntExample" default="jar" basedir=".">
+    <!-- Set properties -->
+    <property name="src.dir" value="src/edu/cscc/json"/>
+    <property name="build.dir" value="build"/>
+    <property name="main.class" value="edu.cscc.json.Main"/>
+    <property name="test.package" value="edu.cscc.json"/>
+
+    <!-- Define the library path -->
+    <path id="lib.path">
+        <fileset dir="lib">
+            <include name="gson-2.8.6.jar"/>
+        </fileset>
+    </path>
+
+    <path id="test.lib.path">
+        <fileset dir="testLib">
+            <include name="junit-platform-console-standalone-1.10.0.jar"/>
+        </fileset>
+    </path>
+
+    <!-- Create necessary directories -->
+    <target name="init">
+        <mkdir dir="${build.dir}"/>
+    </target>
+
+    <!-- Compile the Java source code -->
+    <target name="compile" depends="init">
+        <javac srcdir="${src.dir}" destdir="${build.dir}">
+            <classpath refid="lib.path"/>
+        </javac>
+    </target>
+
+    <!-- Create the JAR file -->
+    <target name="jar" depends="compile">
+        <jar destfile="${build.dir}/JsonExample.jar" basedir="${build.dir}" >
+            <manifest>
+                <attribute name="Main-Class" value="${main.class}"/>
+            </manifest>
+            <fileset dir="lib">
+                <include name="gson-2.8.6.jar"/>
+            </fileset>
+        </jar>
+    </target>
+
+    <!-- Clean up generated files and directories -->
+    <target name="clean">
+        <delete dir="${build.dir}"/>
+    </target>
+
+    <!-- Run tests in the specified package -->
+    <target name="test" depends="compile">
+        <java fork="true" classname="org.junit.platform.console.ConsoleLauncher">
+            <classpath>
+                <path refid="lib.path"/>
+                <path refid="test.lib.path"/>
+                <path location="${build.dir}"/>
+            </classpath>
+            <arg line="--select-package ${test.package}"/>
+        </java>
+    </target>
+
+    <!-- Run the JAR file with the specified JSON_FILE -->
+    <target name="run" depends="jar">
+        <java classname="${main.class}">
+            <classpath>
+                <path refid="lib.path"/>
+                <path location="${build.dir}/JsonExample.jar"/>
+            </classpath>
+            <arg value="${JSON_FILE}"/>
+        </java>
+    </target>
+
+    <!-- Default target -->
+    <target name="default" depends="jar"/>
+
+</project>

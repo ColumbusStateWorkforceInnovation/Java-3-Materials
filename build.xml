@@ -2,7 +2,7 @@
 
 <project name="AntExample" default="jar" basedir=".">
     <!-- Set properties -->
-    <property name="src.dir" value="src/edu/cscc/json"/>
+    <property name="src.dir" value="src/main/java/edu/cscc/json"/>
     <property name="build.dir" value="build"/>
     <property name="main.class" value="edu.cscc.json.Main"/>
     <property name="test.package" value="edu.cscc.json"/>
@@ -62,7 +62,7 @@
     </target>
 
     <!-- Run the JAR file with the specified JSON_FILE -->
-    <target name="run" depends="jar">
+    <target name="run">
         <java classname="${main.class}">
             <classpath>
                 <path refid="lib.path"/>

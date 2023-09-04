@@ -1,7 +1,7 @@
 # Makefile for building JsonExample.jar with multiple Java files in a subdirectory
 
 # Define source files
-SRC_DIR = src/edu/cscc/json
+SRC_DIR = src/main/java/edu/cscc/json
 SRC_FILES = $(wildcard $(SRC_DIR)/*.java)
 
 # Define lib files
@@ -17,10 +17,10 @@ MAIN_PACKAGE = edu.cscc.json
 ENTRY_POINT = $(MAIN_PACKAGE).Main
 
 # Input JSON file. Can be overridden on the command line
-JSON_FILE = src/edu/cscc/json/orders.json
+JSON_FILE = src/main/java/edu/cscc/json/orders.json
 
 # Define the test source files
-TEST_SRC_DIR = test/edu/cscc/json
+TEST_SRC_DIR = src/test/java/edu/cscc/json
 TEST_SRC_FILES = $(wildcard $(TEST_SRC_DIR)/*.java)
 
 # Define the test libs

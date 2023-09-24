@@ -1,0 +1,33 @@
+# This is a YAML document
+name: John Doe
+age: 30
+city: New York
+
+# Lists can be represented using hyphens
+hobbies:
+  - Reading
+  - Hiking
+  - Cooking
+
+# Nested data structures
+address:
+  street: 123 Main St
+  city: Anytown
+  zip: '12345'
+
+# Booleans and null values
+is_student: true
+has_pet: false
+favorite_color: null
+
+# Multiline strings can be represented with the pipe character (|)
+bio: |
+  John Doe is a software engineer with a passion for
+  open-source development. He enjoys coding, exploring
+  new technologies, and spending time in nature.
+
+# Inline arrays and key-value pairs
+languages: [Python, JavaScript, Java]
+social_media:
+  Twitter: @johndoe
+  LinkedIn: /in/johndoe
